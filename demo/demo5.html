@@ -1,0 +1,85 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+  <title>Brief Statement</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <form id="form1" method="post">
+
+    <p><em>Fields in <strong>bold</strong> are required.</em></p>
+
+    <div class="terms" id="terms">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc suscipit sem lorem, eget egestas dui iaculis vel. Suspendisse ultricies efficitur mauris, nec ullamcorper mauris commodo malesuada. Nullam condimentum volutpat tincidunt. Phasellus lorem leo, ultrices nec consequat eget, dictum bibendum ante. Donec in ullamcorper ligula. Praesent a arcu id elit mattis tempus id nec libero. Nunc ultrices pretium porta. Vestibulum non nulla eu massa sollicitudin accumsan. Vivamus arcu urna, iaculis a dolor varius, bibendum ullamcorper libero.</p>
+
+      <p>Nulla non mauris eu risus cursus egestas quis quis lacus. Praesent a feugiat purus. Vestibulum pharetra sodales urna in sagittis. Proin tempus ligula leo, ac vehicula ex dignissim id. Quisque augue nisi, aliquet ut tortor non, lacinia fringilla risus. Sed semper elit vel lobortis volutpat. Morbi non metus congue, euismod velit consequat, malesuada neque. Pellentesque a sapien vehicula nisl tempor bibendum. Nullam viverra tempor augue et tempus. Suspendisse potenti.</p>
+    </div>
+
+    <div class="form-group" style="margin-left: 100px;">
+      <label for="agree">
+        <div class="control-input">
+          <input type="checkbox" id="agree" name="agree" required="required" class="form-control"> Agree to the terms
+        </div>
+        <i class="validation-icon"></i>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <button id="saveBtn" type="submit">Save</button>
+      <button id="resetBtn" type="reset">Reset</button>
+    </div>
+
+  </form>
+
+  <script src="../lib/jquery-1.7.2.js"></script>
+  <script src="../dist/jquery.ada-validate.js"></script>
+  <script src="js/custom-validations.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    $('#agree').on('click.agree', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    $('#terms').on('focusin', function() {
+      console.log('got focus');
+    });
+
+    $('#agree').validatedInput({
+      validator: {
+        rules: [
+          {
+            note: 'Please read the terms',
+            func: (function () {
+              var readTheTerms = false;
+              return function(val) {
+                var t = $('#terms').scrollTop();
+                var y = $('#terms')[0].scrollHeight - $('#terms').height();
+                if (t >= y) {
+                  $('#agree').off('click.agree');
+                  readTheTerms = true;
+                }
+                if (readTheTerms && $('#agree')[0].checked) {
+                  return true;
+                }
+              }
+            })()
+          }
+        ]
+      }
+    })
+
+    $('#saveBtn').validatedForm({
+      submits: true,
+      container: '#form1',
+      onError: function (errorlist) {
+        $(errorlist[0].element).focus();
+      }
+    });
+  </script>
+
+</body>
+</html>

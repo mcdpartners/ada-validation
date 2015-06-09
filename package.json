@@ -1,0 +1,52 @@
+{
+  "name": "jquery-ada-validation",
+  "title": "jQuery ADA Validation Plugin",
+  "description": "Client-side form validation with accessibility compliance",
+  "version": "0.2.7",
+  "homepage": "https://github.com/mcdpartners/ada-validation",
+  "company": "MCD Partners",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcdpartners/ada-validation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mcdpartners/ada-validation/issues"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --log-level debug --single-run false"
+  },
+  "files": ["dist/jquery.ada-validate.js"],
+  "main": "dist/jquery.ada-validate.js",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "0.4.4",
+    "grunt-casperjs": "^2.1.0",
+    "grunt-contrib-compress": "0.7.0",
+    "grunt-contrib-concat": "0.3.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "0.4.0",
+    "grunt-contrib-watch": "0.6.0",
+    "grunt-jscs": "^1.5.0",
+    "grunt-karma": "^0.10.1",
+    "grunt-text-replace": "0.3.11",
+    "grunt-version": "^1.0.0",
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4"
+  },
+  "keywords": [
+    "forms",
+    "validation",
+    "validate",
+    "ada",
+    "wcag",
+    "accessibility"
+  ]
+}
