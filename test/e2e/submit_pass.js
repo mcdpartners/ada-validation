@@ -5,7 +5,8 @@ casper.test.begin('Successful Submit', 1, function suite(test) {
       'hphone': '2125004500',
       'wphone': '2125004500',
       'dob':    '12',
-      'abartn': '114923756'
+      'abartn': '114923756',
+      'gender': 'M'
     }, false);
   });
 

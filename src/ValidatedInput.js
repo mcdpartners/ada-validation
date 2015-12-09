@@ -12,6 +12,7 @@
     this.isRequired = this.$element.attr('required');
     this.validator  = Validator.create(options.validator);
     this.hasError   = false;
+    this.tagName    = this.$element.prop('tagName').toLowerCase();
 
     if (this.isRequired) {
       RequiredRule = new Validator(validations.required);
@@ -22,15 +23,18 @@
     this.configureInput();
   };
 
-  ValidatedInput.VERSION  = '0.2.7';
+  ValidatedInput.VERSION  = '0.3.0';
 
   ValidatedInput.DEFAULTS = {};
 
   ValidatedInput.prototype.addListeners = function() {
     this.$element.on('focus.validatedInput', this, onFocus);
-    this.$element.on('keyup.validatedInput', this, onKeyUp);
     this.$element.on('change.validatedInput', this, onChange);
     this.$element.on('blur.validatedInput', this, onBlur);
+
+    if (this.tagName === 'input') {
+      this.$element.on('keyup.validatedInput', this, onKeyUp);
+    }
   };
 
   ValidatedInput.prototype.removeListeners = function() {
@@ -39,14 +43,13 @@
 
   ValidatedInput.prototype.configureInput = function() {
     var id = this.$element.attr('id');
-    var tagName = this.$element.prop('tagName').toLowerCase();
     var tagType = this.$element.attr('type');
     var attrs = {
         'aria-describedby': id + 'Validations'
       };
     var html;
 
-    if (tagName !== 'input') {
+    if (['input', 'select'].indexOf(this.tagName) === -1) {
       throw new Error('ValidatedInput cannot be applied to a ' + tagName);
     }
 
@@ -63,22 +66,24 @@
       this.hasError = true;
     }
 
-    switch (tagType) {
-      case 'text':
-      case 'email':
-      case 'tel':
-      case 'password':
-        $.extend(attrs, {
-          'maxlength': this.validator.maxlength,
-          'autocapitalize': this.validator.autocapitalize || 'off',
-          'autocorrect': this.validator.autocorrect || 'off',
-          'placeholder': this.validator.placeholder
-        });
-        break;
-      case 'radio':
-      case 'checkbox':
-        // Nothing yet
-        break;
+    if (this.tagName === 'input') {
+      switch (tagType) {
+        case 'text':
+        case 'email':
+        case 'tel':
+        case 'password':
+          $.extend(attrs, {
+            'maxlength': this.validator.maxlength,
+            'autocapitalize': this.validator.autocapitalize || 'off',
+            'autocorrect': this.validator.autocorrect || 'off',
+            'placeholder': this.validator.placeholder
+          });
+          break;
+        case 'radio':
+        case 'checkbox':
+          // Nothing yet
+          break;
+      }
     }
 
     // This flag is set initally so that we know when the first time
@@ -234,7 +239,7 @@
   // =================
 
   $(document).ready(function() {
-    $('input[data-validation]').each(function() {
+    $('[data-validation]').each(function() {
       var $this   = $(this);
       var data    = $this.data('validatedInput');
       var option  = {
