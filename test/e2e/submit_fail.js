@@ -1,4 +1,4 @@
-casper.test.begin('Testing Form Submit With Known Errors', 19, function suite(test) {
+casper.test.begin('Testing Form Submit With Known Errors', 22, function suite(test) {
   function assertInput(id) {
     test.assertExists(id, id + ' Input exists');
     this.click(id);
@@ -13,6 +13,7 @@ casper.test.begin('Testing Form Submit With Known Errors', 19, function suite(te
       'wphone': '123',
       'dob':    '45',
       'abartn': '123',
+      'gender': ''
     }, false);
   });
 
@@ -52,10 +53,16 @@ casper.test.begin('Testing Form Submit With Known Errors', 19, function suite(te
   casper.waitForSelector('#abartnValidations[aria-hidden="false"]', function() {
     test.assertEquals(this.getElementAttribute('#wphoneValidations', 'aria-hidden'), 'true', '#dob Tooltip is hidden on blur');
     test.assert(true, '#abartn Tooltip is visible on focus');
+    assertInput.call(this, '#gender');
+  });
+
+  casper.waitForSelector('#genderValidations[aria-hidden="false"]', function() {
+    test.assertEquals(this.getElementAttribute('#abartnValidations', 'aria-hidden'), 'true', '#abartn Tooltip is hidden on blur');
+    test.assert(true, '#gender Tooltip is visible on focus');
   });
 
   casper.thenClick('#resetBtn', function() {
-    test.assertEquals(this.getElementAttribute('#abartnValidations', 'aria-hidden'), 'true', '#abartn Tooltip is hidden on blur');
+    test.assertEquals(this.getElementAttribute('#genderValidations', 'aria-hidden'), 'true', '#gender Tooltip is hidden on blur');
     casper.echo('==== Form Reset ====', 'INFO');
     test.assertEquals(this.getElementAttribute('#err', 'aria-hidden'), 'true', 'The summary element is hidden');
   });

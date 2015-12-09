@@ -1,4 +1,4 @@
-casper.test.begin('Config Input', 10, function suite(test) {
+casper.test.begin('Config Input', 12, function suite(test) {
   casper.start('demo/demo1.html', function() {
   });
 
@@ -12,12 +12,14 @@ casper.test.begin('Config Input', 10, function suite(test) {
     test.assertExists('input[aria-describedby="wphoneValidations"][data-validation="phone"][maxlength="14"][autocorrect="off"][autocapitalize="off"][placeholder="(XXX) XXX-XXXX"]');
     test.assertExists('input[aria-describedby="dobValidations"][data-validation="true"][maxlength="2"][autocorrect="off"][autocapitalize="off"]');
     test.assertExists('input[aria-describedby="abartnValidations"][data-validation="abartn"][maxlength="9"][autocorrect="off"][autocapitalize="off"]');
+    test.assertExists('select[aria-describedby="genderValidations"][data-validation="true"]');
 
     test.assertExists('#fnameValidations');
     test.assertExists('#hphoneValidations');
     test.assertExists('#wphoneValidations');
     test.assertExists('#dobValidations');
     test.assertExists('#abartnValidations');
+    test.assertExists('#genderValidations');
 
     // Possible test for Placeholder Text
     /*
