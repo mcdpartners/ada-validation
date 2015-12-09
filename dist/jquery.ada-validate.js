@@ -1,5 +1,5 @@
 /*!
- * jQuery ADA Validation Plugin v0.3.0
+ * jQuery ADA Validation Plugin v0.3.1
  *
  * Copyright (c) 2015 MCD Partners
  * Released under the MIT license
@@ -166,6 +166,9 @@ ValidatorRule.prototype.test = function(val) {
 
     if (this.isRequired) {
       RequiredRule = new Validator(validations.required);
+      if (this.options.requiredNote) {
+        RequiredRule.rules[0].note = this.options.requiredNote;
+      }
       this.validator.rules = this.validator.rules.concat(RequiredRule.rules);
     }
 
@@ -173,7 +176,7 @@ ValidatorRule.prototype.test = function(val) {
     this.configureInput();
   };
 
-  ValidatedInput.VERSION  = '0.3.0';
+  ValidatedInput.VERSION  = '0.3.1';
 
   ValidatedInput.DEFAULTS = {};
 
@@ -415,7 +418,7 @@ ValidatorRule.prototype.test = function(val) {
     this.addListeners();
   };
 
-  ValidatedForm.VERSION  = '0.3.0';
+  ValidatedForm.VERSION  = '0.3.1';
 
   ValidatedForm.DEFAULTS = {};
 

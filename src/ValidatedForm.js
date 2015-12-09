@@ -11,7 +11,7 @@
     this.addListeners();
   };
 
-  ValidatedForm.VERSION  = '0.3.0';
+  ValidatedForm.VERSION  = '0.3.1';
 
   ValidatedForm.DEFAULTS = {};
 
