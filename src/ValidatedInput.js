@@ -16,6 +16,9 @@
 
     if (this.isRequired) {
       RequiredRule = new Validator(validations.required);
+      if (this.options.requiredNote) {
+        RequiredRule.rules[0].note = this.options.requiredNote;
+      }
       this.validator.rules = this.validator.rules.concat(RequiredRule.rules);
     }
 
@@ -23,7 +26,7 @@
     this.configureInput();
   };
 
-  ValidatedInput.VERSION  = '0.3.0';
+  ValidatedInput.VERSION  = '0.3.1';
 
   ValidatedInput.DEFAULTS = {};
 
