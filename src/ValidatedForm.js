@@ -100,7 +100,10 @@
   }
 
   function onErrorClick(e) {
-    $($(e.currentTarget).attr('href')).focus();
+    var $window = $(window),
+        $anchorTarget = $($(e.currentTarget).attr('href'));
+    $window.scrollTop($anchorTarget.offset().top - $window.outerHeight(true) / 2);
+    $anchorTarget.focus();
     return false;
   }
 
