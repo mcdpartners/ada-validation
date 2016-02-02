@@ -1,7 +1,7 @@
 /*!
  * jQuery ADA Validation Plugin v0.3.1
  *
- * Copyright (c) 2015 MCD Partners
+ * Copyright (c) 2016 MCD Partners
  * Released under the MIT license
  */
 (function ($, window, document, undefined) {
@@ -507,7 +507,10 @@ ValidatorRule.prototype.test = function(val) {
   }
 
   function onErrorClick(e) {
-    $($(e.currentTarget).attr('href')).focus();
+    var $window = $(window),
+        $anchorTarget = $($(e.currentTarget).attr('href'));
+    $window.scrollTop($anchorTarget.offset().top - $window.outerHeight(true) / 2);
+    $anchorTarget.focus();
     return false;
   }
 
